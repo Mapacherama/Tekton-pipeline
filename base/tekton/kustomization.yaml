@@ -1,5 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - StrawhatAPI/tekton/tasks/task-bandit.yaml
-  - StrawhatAPI/tekton/pipeline/tekton-pipeline.yaml
+  - base/tekton/tasks/task-bandit.yaml
+  - base/tekton/pipeline/tekton-pipeline.yaml
