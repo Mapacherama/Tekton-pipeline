@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1
+apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: build-and-deploy
@@ -7,7 +7,7 @@ spec:
   workspaces:
   - name: shared-workspace
   tasks:
-  - name: git-strawhat-API
+  - name: git-clone-api
     taskRef:
       kind: ClusterTask
       name: git-clone
@@ -37,9 +37,9 @@ spec:
     - name: source
       workspace: shared-workspace
     runAfter:
-      - git-strawhat-API
+      - git-clone-api
 
-  - name: kube-linter-API
+  - name: kube-linter-api
     taskRef:
       name: kube-linter
     params:
@@ -49,9 +49,9 @@ spec:
     - name: source
       workspace: shared-workspace
     runAfter:
-      - git-strawhat-API
+      - git-clone-api
 
-  - name: build-scan-API
+  - name: build-scan-api
     workspaces:
     - name: source
       workspace: shared-workspace
@@ -66,15 +66,15 @@ spec:
         value: 'false'
     runAfter:
       - python-scanner
-      - kube-linter-API
+      - kube-linter-api
 
-  - name: k8s-deploy-API
+  - name: k8s-deploy-api
     workspaces:
     - name: source
       workspace: shared-workspace
     taskRef:
       name: apply-manifests
     runAfter:
-      - build-scan-API
+      - build-scan-api
 
 
