@@ -1,23 +1,5 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
-metadata:
-  creationTimestamp: '2022-11-01T03:43:50Z'
-  generation: 1
-  managedFields:
-    - apiVersion: tekton.dev/v1beta1
-      fieldsType: FieldsV1
-      fieldsV1:
-        'f:spec':
-          .: {}
-          'f:tasks': {}
-          'f:workspaces': {}
-      manager: Mozilla
-      operation: Update
-      time: '2022-11-01T03:43:50Z'
-  name: devsecops
-  namespace: mapacherama-dev
-  resourceVersion: '1664130125'
-  uid: 1a499ca4-8e9b-4f73-9cc5-9f7a9f21ff4d
 spec:
   tasks:
   - name: git-clone-api
