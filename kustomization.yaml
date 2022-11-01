@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - base/tekton/tasks/task-bandit.yaml
   - base/tekton/pipeline/tekton-pipeline.yaml
+  - base/tekton/pipeline/build-task.yaml
