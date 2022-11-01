@@ -7,7 +7,7 @@ spec:
   tasks:
   - name: git-clone-api
     taskRef:
-        kind: ClusterTask
+        kind: Task
         name: git-clone-api
 #    workspaces:
 #      - name: output
