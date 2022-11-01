@@ -5,57 +5,58 @@ metadata:
   namespace: mapacherama-dev
 spec:
   tasks:
-    kind: Task
-    name: git-clone-api
-#    workspaces:
-#      - name: output
-#        workspace: shared-workspace
-    params:
-      - name: url
-        value: 'https://github.com/Mapacherama/StrawHat_API_GraphQL_Python.git'
-      - name: submodules
-        value: 'true'
-      - name: depth
-        value: '1'
-      - name: sslVerify
-        value: 'false'
-      - name: deleteExisting
-        value: 'true'
-      - name: verbose
-        value: 'true'
-      - name: revision
-        value: clear
+    - name: git-clone-api
+      taskRef:
+        kind: ClusterTask
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+      params:
+        - name: url
+          value: 'https://github.com/Mapacherama/StrawHat_API_GraphQL_Python.git'
+        - name: submodules
+          value: 'true'
+        - name: depth
+          value: '1'
+        - name: sslVerify
+          value: 'false'
+        - name: deleteExisting
+          value: 'true'
+        - name: verbose
+          value: 'true'
+        - name: revision
 
-  - name: python-scanner
-    taskRef:
-        name: bandit-scan
-#    workspaces:
-#        - name: source
-#          workspace: shared-workspace
-    runAfter:
-      - git-clone-api
+    - name: python-scanner
+      taskRef:
+          name: bandit-scan
+  #    workspaces:
+  #        - name: source
+  #          workspace: shared-workspace
+      runAfter:
+        - git-clone-api
 
-  - name: build-scan-api
-#    workspaces:
-#      - name: source
-#        workspace: shared-workspace
-    taskRef:
-      name: build-and-scan
-    params:
-      - name: out-image-name
-        value: backend
-      - name: CONTEXT
-        value: app/
-      - name: TLSVERIFY
-        value: 'false'
-    runAfter:
-      - python-scanner
+    - name: build-scan-api
+  #    workspaces:
+  #      - name: source
+  #        workspace: shared-workspace
+      taskRef:
+        name: build-and-scan
+      params:
+        - name: out-image-name
+          value: backend
+        - name: CONTEXT
+          value: app/
+        - name: TLSVERIFY
+          value: 'false'
+      runAfter:
+        - python-scanner
 
-  - name: k8s-deploy-api
-#    workspaces:
-#      - name: source
-#        workspace: shared-workspace
-    taskRef:
-      name: apply-manifests
-    runAfter:
-      - build-scan-api
+    - name: k8s-deploy-api
+  #    workspaces:
+  #      - name: source
+  #        workspace: shared-workspace
+      taskRef:
+        name: apply-manifests
+      runAfter:
+        - build-scan-api
