@@ -5,10 +5,8 @@ metadata:
   namespace: mapacherama-dev
 spec:
   tasks:
-  - name: git-clone-api
-    taskRef:
-        kind: Task
-        name: git-clone-api
+    kind: Task
+    name: git-clone-api
 #    workspaces:
 #      - name: output
 #        workspace: shared-workspace
