@@ -20,70 +20,59 @@ metadata:
   uid: 1a499ca4-8e9b-4f73-9cc5-9f7a9f21ff4d
 spec:
   tasks:
-    - name: git-clone-api
-      params:
-        - name: url
-          value: 'https://github.com/Mapacherama/StrawHat_API_GraphQL_Python.git'
-        - name: submodules
-          value: 'true'
-        - name: depth
-          value: '1'
-        - name: sslVerify
-          value: 'false'
-        - name: deleteExisting
-          value: 'true'
-        - name: verbose
-          value: 'true'
-        - name: revision
-          value: clear
-      taskRef:
+  - name: git-clone-api
+    taskRef:
         kind: ClusterTask
         name: git-clone
-      workspaces:
-        - name: output
-          workspace: shared-workspace
-    - name: python-scanner
-      runAfter:
-        - git-clone-api
-      taskRef:
+    workspaces:
+      - name: output
+        workspace: shared-workspace
+    params:
+      - name: url
+        value: 'https://github.com/Mapacherama/StrawHat_API_GraphQL_Python.git'
+      - name: submodules
+        value: 'true'
+      - name: depth
+        value: '1'
+      - name: sslVerify
+        value: 'false'
+      - name: deleteExisting
+        value: 'true'
+      - name: verbose
+        value: 'true'
+      - name: revision
+        value: clear
+
+  - name: python-scanner
+    taskRef:
         name: bandit-scan
-      workspaces:
+    workspaces:
         - name: source
           workspace: shared-workspace
-    - name: kube-linter-api
-      params:
-        - name: subdirectory
-          value: api/kubernetes/
-      runAfter:
-        - git-clone-api
-      taskRef:
-        name: kube-linter
-      workspaces:
-        - name: source
-          workspace: shared-workspace
-    - name: build-scan-api
-      params:
-        - name: out-image-name
-          value: backend
-        - name: CONTEXT
-          value: app/
-        - name: TLSVERIFY
-          value: 'false'
-      runAfter:
-        - python-scanner
-        - kube-linter-api
-      taskRef:
-        name: build-and-scan
-      workspaces:
-        - name: source
-          workspace: shared-workspace
-    - name: k8s-deploy-api
-      runAfter:
-        - build-scan-api
-      taskRef:
-        name: apply-manifests
-      workspaces:
-        - name: source
-          workspace: shared-workspace
-  workspaces:
-    - name: shared-workspace
+    runAfter:
+      - git-clone-api
+
+  - name: build-scan-api
+    workspaces:
+      - name: source
+        workspace: shared-workspace
+    taskRef:
+      name: build-and-scan
+    params:
+      - name: out-image-name
+        value: backend
+      - name: CONTEXT
+        value: app/
+      - name: TLSVERIFY
+        value: 'false'
+    runAfter:
+      - python-scanner
+
+  - name: k8s-deploy-be
+    workspaces:
+      - name: source
+        workspace: shared-workspace
+    taskRef:
+      name: apply-manifests
+    runAfter:
+      - build-scan-api
