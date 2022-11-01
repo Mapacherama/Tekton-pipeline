@@ -5,7 +5,7 @@ metadata:
   namespace: mapacherama-dev
 spec:
   tasks:
-  - name: git-clone
+  - name: git-clone-api
     taskRef:
         kind: ClusterTask
         name: git-clone
