@@ -1,80 +1,89 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: build-and-deploy
-  namespace: devsecops
+  creationTimestamp: '2022-11-01T03:43:50Z'
+  generation: 1
+  managedFields:
+    - apiVersion: tekton.dev/v1beta1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          .: {}
+          'f:tasks': {}
+          'f:workspaces': {}
+      manager: Mozilla
+      operation: Update
+      time: '2022-11-01T03:43:50Z'
+  name: devsecops
+  namespace: mapacherama-dev
+  resourceVersion: '1664130125'
+  uid: 1a499ca4-8e9b-4f73-9cc5-9f7a9f21ff4d
 spec:
-  workspaces:
-  - name: shared-workspace
   tasks:
-  - name: git-clone-api
-    taskRef:
-      kind: ClusterTask
-      name: git-clone
-    workspaces:
-    - name: output
-      workspace: shared-workspace
-    params:
-      - name: url
-        value: 'https://github.com/Mapacherama/StrawHat_API_GraphQL_Python.git'
-      - name: submodules
-        value: 'true'
-      - name: depth
-        value: '1'
-      - name: sslVerify
-        value: 'false'
-      - name: deleteExisting
-        value: 'true'
-      - name: verbose
-        value: 'true'
-      - name: revision
-        value: 'clear'
-
-  - name: python-scanner
-    taskRef:
-      name: bandit-scan
-    workspaces:
-    - name: source
-      workspace: shared-workspace
-    runAfter:
-      - git-clone-api
-
-  - name: kube-linter-api
-    taskRef:
-      name: kube-linter
-    params:
-    - name: subdirectory
-      value: api/kubernetes/
-    workspaces:
-    - name: source
-      workspace: shared-workspace
-    runAfter:
-      - git-clone-api
-
-  - name: build-scan-api
-    workspaces:
-    - name: source
-      workspace: shared-workspace
-    taskRef:
-      name: build-and-scan
-    params:
-      - name: out-image-name
-        value: backend
-      - name: CONTEXT
-        value: app/
-      - name: TLSVERIFY
-        value: 'false'
-    runAfter:
-      - python-scanner
-      - kube-linter-api
-
-  - name: k8s-deploy-api
-    workspaces:
-    - name: source
-      workspace: shared-workspace
-    taskRef:
-      name: apply-manifests
-    runAfter:
-      - build-scan-api
-
-
+    - name: git-clone-api
+      params:
+        - name: url
+          value: 'https://github.com/Mapacherama/StrawHat_API_GraphQL_Python.git'
+        - name: submodules
+          value: 'true'
+        - name: depth
+          value: '1'
+        - name: sslVerify
+          value: 'false'
+        - name: deleteExisting
+          value: 'true'
+        - name: verbose
+          value: 'true'
+        - name: revision
+          value: clear
+      taskRef:
+        kind: ClusterTask
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+    - name: python-scanner
+      runAfter:
+        - git-clone-api
+      taskRef:
+        name: bandit-scan
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: kube-linter-api
+      params:
+        - name: subdirectory
+          value: api/kubernetes/
+      runAfter:
+        - git-clone-api
+      taskRef:
+        name: kube-linter
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: build-scan-api
+      params:
+        - name: out-image-name
+          value: backend
+        - name: CONTEXT
+          value: app/
+        - name: TLSVERIFY
+          value: 'false'
+      runAfter:
+        - python-scanner
+        - kube-linter-api
+      taskRef:
+        name: build-and-scan
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: k8s-deploy-api
+      runAfter:
+        - build-scan-api
+      taskRef:
+        name: apply-manifests
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+  workspaces:
+    - name: shared-workspace
