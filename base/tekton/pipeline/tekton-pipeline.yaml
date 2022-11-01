@@ -9,9 +9,9 @@ spec:
     taskRef:
         kind: ClusterTask
         name: git-clone
-    workspaces:
-      - name: output
-        workspace: shared-workspace
+#    workspaces:
+#      - name: output
+#        workspace: shared-workspace
     params:
       - name: url
         value: 'https://github.com/Mapacherama/StrawHat_API_GraphQL_Python.git'
@@ -31,16 +31,16 @@ spec:
   - name: python-scanner
     taskRef:
         name: bandit-scan
-    workspaces:
-        - name: source
-          workspace: shared-workspace
+#    workspaces:
+#        - name: source
+#          workspace: shared-workspace
     runAfter:
       - git-clone-api
 
   - name: build-scan-api
-    workspaces:
-      - name: source
-        workspace: shared-workspace
+#    workspaces:
+#      - name: source
+#        workspace: shared-workspace
     taskRef:
       name: build-and-scan
     params:
@@ -53,10 +53,10 @@ spec:
     runAfter:
       - python-scanner
 
-  - name: k8s-deploy-be
-    workspaces:
-      - name: source
-        workspace: shared-workspace
+  - name: k8s-deploy-api
+#    workspaces:
+#      - name: source
+#        workspace: shared-workspace
     taskRef:
       name: apply-manifests
     runAfter:
