@@ -1,5 +1,8 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
+metadata:
+  name: devsecops
+  namespace: mapacherama-dev
 spec:
   tasks:
   - name: git-clone-api
