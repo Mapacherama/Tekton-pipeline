@@ -5,7 +5,7 @@ metadata:
   namespace: mapacherama-dev
 spec:
   tasks:
-    - name: git-clone-api
+    - name: fetch-repository
       taskRef:
         kind: ClusterTask
         name: git-clone
@@ -25,21 +25,20 @@ spec:
           value: 'true'
         - name: verbose
           value: 'true'
-        - name: revision
 
     - name: python-scanner
       taskRef:
           name: bandit-scan
-  #    workspaces:
-  #        - name: source
-  #          workspace: shared-workspace
+      workspaces:
+          - name: source
+            workspace: shared-workspace
       runAfter:
         - git-clone-api
 
     - name: build-scan-api
-  #    workspaces:
-  #      - name: source
-  #        workspace: shared-workspace
+      workspaces:
+        - name: source
+          workspace: shared-workspace
       taskRef:
         name: build-and-scan
       params:
@@ -53,9 +52,9 @@ spec:
         - python-scanner
 
     - name: k8s-deploy-api
-  #    workspaces:
-  #      - name: source
-  #        workspace: shared-workspace
+      workspaces:
+        - name: source
+          workspace: shared-workspace
       taskRef:
         name: apply-manifests
       runAfter:

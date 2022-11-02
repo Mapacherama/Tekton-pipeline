@@ -54,7 +54,6 @@ spec:
     - name: IMAGE_DIGEST
       description: Digest of the image just built.
   steps:
-
     # Build docker image
     - name: build
       image: $(params.BUILDER_IMAGE)
