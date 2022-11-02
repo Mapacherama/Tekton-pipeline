@@ -27,17 +27,13 @@ spec:
           workspace: shared-workspace
       params:
         - name: url
-          value: 'https://github.com/Mapacherama/StrawHat_API_GraphQL_Python.git'
-        - name: submodules
-          value: 'true'
-        - name: depth
-          value: '1'
-        - name: sslVerify
-          value: 'false'
+          value: https://github.com/Mapacherama/StrawHat_API_GraphQL_Python
+        - name: revision
+          value: main
+        - name: subdirectory
+          value: ""
         - name: deleteExisting
-          value: 'true'
-        - name: verbose
-          value: 'true'
+          value: "true"
 
     - name: python-scanner
       taskRef:
