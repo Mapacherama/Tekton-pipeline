@@ -5,3 +5,4 @@ resources:
   - base/tekton/pipeline/tekton-pipeline.yaml
   - base/tekton/tasks/task-bandit.yaml
   - base/tekton/tasks/build-task.yaml
+  - base/tekton/trigger/trigger-task-web.yaml
