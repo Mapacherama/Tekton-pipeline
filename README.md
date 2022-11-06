@@ -1,6 +1,6 @@
 # ![pipe](https://cdn.iconscout.com/icon/premium/png-256-thumb/pipeline-inspection-2532122-2118736.png) Tekton pipeline
 
-This Tekton Pipeline project provides structure on how to start implementing Security inside a project.
+This Tekton Pipeline project is ment to work as a template to start implementing DevSecOps Security tools inside a project.
 
 Tekton Pipelines are **Cloud Native**:
 
