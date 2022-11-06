@@ -20,7 +20,7 @@ Clone the repository. (If you want to make changes, fork the repository)
 
    ```bash
    git clone https://github.com/Mapacherama/Tekton-pipeline.git
-   cd ./pipeline-templates/tekton
+   cd ./Tekton-pipeline
    ```
 Information about installing tekton pipelines
 
