@@ -14,3 +14,15 @@ Any of the Kubernetes clusters can be reached by this pipeline
 Isolating seperate tasks is made easy.
 Switching between resources (ea different Git Repositories) is made simple.
 
+## Installation
+
+Clone the repository. (If you want to make changes, fork the repository)
+
+   ```bash
+   git clone https://github.com/Mapacherama/Tekton-pipeline.git
+   cd ./pipeline-templates/tekton
+   ```
+Information about installing tekton pipelines
+
+[Installing Tekton Pipelines](https://github.com/tektoncd/pipeline/blob/main/docs/install.md)
+
