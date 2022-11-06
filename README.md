@@ -62,7 +62,7 @@ for more information.
 
 See the 
 
-[OpenShift CLI documentation]https://docs.openshift.com/container-platform/4.7/cli_reference/tkn_cli/op-tkn-reference.html
+[OpenShift CLI documentation](https://docs.openshift.com/container-platform/4.7/cli_reference/tkn_cli/op-tkn-reference.html)
 
 for more information on the `tkn` command.
 
