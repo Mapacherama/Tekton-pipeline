@@ -1,6 +1,6 @@
 # ![pipe](https://cdn.iconscout.com/icon/premium/png-256-thumb/pipeline-inspection-2532122-2118736.png) Tekton pipeline
 
-This Tekton Pipeline project provides structure on how to start implementing Security inside a project.
+This Tekton Pipeline project is ment to work as a template to start implementing DevSecOps Security tools to start developing security first.
 
 Tekton Pipelines are **Cloud Native**:
 
@@ -62,7 +62,7 @@ for more information.
 
 See the 
 
-[OpenShift CLI documentation]https://docs.openshift.com/container-platform/4.7/cli_reference/tkn_cli/op-tkn-reference.html
+[OpenShift CLI documentation](https://docs.openshift.com/container-platform/4.7/cli_reference/tkn_cli/op-tkn-reference.html)
 
 for more information on the `tkn` command.
 
