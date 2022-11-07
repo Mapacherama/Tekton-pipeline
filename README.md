@@ -1,6 +1,6 @@
 # ![pipe](https://cdn.iconscout.com/icon/premium/png-256-thumb/pipeline-inspection-2532122-2118736.png) Tekton-pipeline Template
 
-This Tekton Pipeline project is ment to work as a template to start implementing DevSecOps Security tools to start developing security first.
+This Tekton Pipeline project is meant to work as a template to start implementing DevSecOps Security tools to start developing security first.
 
 Tekton Pipelines are **Cloud Native**:
 
@@ -11,7 +11,7 @@ Tekton Pipelines are **Cloud Native**:
 Tekton Pipelines are **Decoupled**:
 
 Any of the Kubernetes clusters can be reached by this pipeline
-Isolating seperate tasks is made easy.
+Isolating separate tasks is made easy.
 Switching between resources (ea different Git Repositories) is made simple.
 
 ## Installation

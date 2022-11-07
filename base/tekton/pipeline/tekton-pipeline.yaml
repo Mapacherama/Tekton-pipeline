@@ -14,7 +14,7 @@ spec:
           workspace: shared-workspace
       params:
         - name: url
-          value: https://github.com/Mapacherama/StrawHat_API_GraphQL_Python
+          value: https://github.com/Mapacherama/StrawHat_API_GraphQL_Python # Git project repository URL.
         - name: revision
           value: main
         - name: subdirectory

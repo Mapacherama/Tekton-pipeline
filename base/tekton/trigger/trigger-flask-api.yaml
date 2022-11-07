@@ -15,7 +15,7 @@ spec:
     - name: dockerfile
       default: Dockerfile
     - name: pathToContext
-      default: path to default flask .py file that instantiates flask
+      default: . #default folder
     - name: buildahImage
       default: quay.io/buildah/stable:v1.23.1
   resourcetemplates:
@@ -29,19 +29,19 @@ spec:
           name: p-buildah
         params:
           - name: appName
-            value: $(tt.params.appName)
+            value: $(ph.params.appName)
           - name: repoUrl
-            value: $(tt.params.repoUrl)
+            value: $(ph.params.repoUrl)
           - name: imageUrl
-            value: $(tt.params.imageUrl)
+            value: $(ph.params.imageUrl)
           - name: branchName
-            value: $(tt.params.branchName)
+            value: $(ph.params.branchName)
           - name: dockerfile
-            value: $(tt.params.dockerfile)
+            value: $(ph.params.dockerfile)
           - name: pathToContext
-            value: $(tt.params.pathToContext)
+            value: $(ph.params.pathToContext)
           - name: buildahImage
-            value: $(tt.params.buildahImage)
+            value: $(ph.params.buildahImage)
         workspaces:
           - name: shared-data
             volumeClaimTemplate:
@@ -51,9 +51,3 @@ spec:
                 resources:
                   requests:
                     storage: 500Mi
-          - name: ssh-creds
-            secret:
-              secretName: ssh-key-path
-          - name: docker-config
-            secret:
-              secretName: docker-config-path
